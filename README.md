@@ -2,6 +2,8 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
 
+This is the UI for the a full stack buy and sell application.
+
 ## Development server
 
 To start a local development server, run:
