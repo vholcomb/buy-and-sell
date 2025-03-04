@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ListingDataFormComponent } from '../listing-data-form/listing-data-form.component';
+import { ListingsService } from '../listings.service';
 
 @Component({
   selector: 'app-new-listing-page',
@@ -14,10 +15,13 @@ export class NewListingPageComponent {
 
   constructor(
     private router: Router,
+    private listingsService: ListingsService
   ) {}
 
-  onSubmit(): void {
-    alert('Creating a new listing...');
-    this.router.navigateByUrl('/my-listings');
+  onSubmit({ name, description, price }: { name: string; description: string; price: number }): void {
+    this.listingsService.createListing(name, description, price)
+      .subscribe(() => {
+        this.router.navigateByUrl('/my-listings');
+    });
   }
 }

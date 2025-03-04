@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Listing } from '../types';
-import { fakeListings } from '../fake-data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ListingsService } from '../listings.service';
+
 
 @Component({
   selector: 'app-contact-page',
@@ -19,12 +20,15 @@ export class ContactPageComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private listingsService: ListingsService
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.listing = fakeListings.find(listing => listing.id === id);
-    this.message = `Hi, I'm interested in your ${this.listing?.name.toLowerCase()}!`;
+    this.listingsService.getListingById(id || '').subscribe(listing => {
+      this.listing = listing;
+      this.message = `Hi, I'm interested in your ${this.listing?.name.toLowerCase()}!`;
+    });
   }
 
   sendMessage(): void {

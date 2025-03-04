@@ -12,6 +12,9 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
+          "prerender": {
+            "routesFile": "app.routes.ts"
+          },
           "options": {
             "outputPath": "dist/buy-and-sell",
             "index": "src/index.html",

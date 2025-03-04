@@ -8,11 +8,15 @@ import { MyListingsPageComponent } from './my-listings-page/my-listings-page.com
 import { NewListingPageComponent } from './new-listing-page/new-listing-page.component';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { RenderMode } from '@angular/ssr';
+import { environment } from '../environments/environments';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/listings', pathMatch: 'full'},
   {path: 'listings', component: ListingsPageComponent, pathMatch: 'full'},
-  {path: 'listings/:id', component: ListingDetailPageComponent },
+  {path: 'listings/:id', component: ListingDetailPageComponent},
   {path: 'contact/:id', component: ContactPageComponent},
   {path: 'edit-listing/:id', component: EditListingPageComponent},
   {path: 'my-listings', component: MyListingsPageComponent},
@@ -20,7 +24,14 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), RouterModule, CommonModule, NgFor, FormsModule],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes),
+    RouterModule,
+    CommonModule,
+    NgFor,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
+  ],
 })
 export class AppRoutingModule { }
